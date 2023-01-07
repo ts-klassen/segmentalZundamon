@@ -201,16 +201,23 @@ class SegZunAudio {
         return;
       }
       
-      audio.audio.play();
-      
       if (id+SZA.HEAD_AUDIO_LIMIT<SZA.audioCount) {
         SZA.genAudio(id+SZA.HEAD_AUDIO_LIMIT);
       }
       
-      let delay = Math.max(0, audio.duration*0.9);
+      audio.audio.play();
       if (id+1<SZA.audioCount) {
-        setTimeout(main, delay, SZA, id+1)
+        let playNextAudioOnEvent = (e) => {
+          audio.audio.removeEventListener('playing', playNextAudioOnEvent);
+          let delay = Math.max(0, audio.duration - 100);
+            setTimeout(main, delay, SZA, id+1)
+        };
+        audio.audio.addEventListener('playing', playNextAudioOnEvent);
       }
+      else {
+        SZA.isPlaying = false;
+      }
+      
     }
     
     main(this, id%this.audioCount);
