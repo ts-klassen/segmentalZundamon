@@ -11,7 +11,6 @@ class SegZunAudio {
     this.playNext = 0;
     this.isPlaying = false;
     this.text = text;
-    this.audioUrls = null;
     this.audios = new Array(this.AUDIO_LIMIT);
     for (let i=0;i<this.AUDIO_LIMIT;i++) {
       this.audios[i] = new Object();
@@ -116,6 +115,7 @@ class SegZunAudio {
   
     function main(id, address, audios, SZA) {
     
+      // It means someone has allready created.
       if (audios[address].id == id) {
         return;
       }
@@ -126,15 +126,14 @@ class SegZunAudio {
       audios[address].audio = new Audio(SZA.audioUrls[id]);
       audios[address].audio.load();
       
+      // It takes time to load. 
       audios[address].audio.addEventListener("loadedmetadata",function(e) {
         audios[address].duration = 1000*audios[address].audio.duration;
         audios[address].id = id;
         audios[address].status = "ready";
-        if (id==SZA.HEAD_AUDIO_LIMIT-1 && SZA.hasPlayed==false) {
-          SZA.playFromStart();
-        }
       });
       
+      // When still creating, the server returns 404...
       audios[address].audio.addEventListener("error",function(e) { 
         audios[address] = new Object();
         audios[address].id = -1;
@@ -146,6 +145,11 @@ class SegZunAudio {
       
     }
   
+    // Since you can play from the begining, 
+    // the frist 10 audios won't be deleted.
+    // For the rest of the audio, it will only use 40.
+    // This is because chromium limits the number of Audio.
+    // 40[ 10] is defined in [HEAD_]AUDIO_LIMIT.
     if (id<this.HEAD_AUDIO_LIMIT) {
       main(
         id, 
@@ -166,7 +170,7 @@ class SegZunAudio {
   
   /*
   Method
-    
+    Starts playing the audio from id. RECURSIVE.
   */
   startPlayingById(id) {
   
@@ -209,10 +213,14 @@ class SegZunAudio {
       }
     }
     
-    main(this, id);
+    main(this, id%this.audioCount);
     
   }
   
+  /*
+  Method
+    Starts playing the audio from playNext.
+  */
   play() {
     if (this.isPlaying) return;
     this.isPlaying = true;
@@ -221,11 +229,19 @@ class SegZunAudio {
     this.startPlayingById(id);
   }
   
+  /*
+  Method
+    Pauses the audio. play() to resume.
+  */
   pause() {
     this.shouldPause = true;
     this.isPlaying = false;
   }
   
+  /*
+  Method
+    Plays audio from the begining
+  */
   playFromStart() {
     if (this.isPlaying) return;
     this.isPlaying = true;
