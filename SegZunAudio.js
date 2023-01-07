@@ -6,7 +6,6 @@ class SegZunAudio {
   constructor(text) {
     this.AUDIO_LIMIT = 40;
     this.HEAD_AUDIO_LIMIT = 10;
-    this.hasPlayed = false;
     this.shouldPause = false;
     this.playNext = 0;
     this.isPlaying = false;
@@ -99,6 +98,8 @@ class SegZunAudio {
         for (let i=0;i<iEnd;i++) {
           SZA.genAudio(i);
         }
+        
+        SZA.playFromStart()
         
       };
     }
@@ -206,12 +207,16 @@ class SegZunAudio {
       }
       
       audio.audio.play();
+      
       if (id+1<SZA.audioCount) {
         let playNextAudioOnEvent = (e) => {
           audio.audio.removeEventListener('playing', playNextAudioOnEvent);
-          let delay = Math.max(0, audio.duration - 100);
-            setTimeout(main, delay, SZA, id+1)
+          
+          // The most difficult bit. How long should you wait.
+          let delay = Math.max(audio.duration -120, audio.duration *.80);
+          setTimeout(main, delay, SZA, id+1)
         };
+        
         audio.audio.addEventListener('playing', playNextAudioOnEvent);
       }
       else {
@@ -231,7 +236,6 @@ class SegZunAudio {
   play() {
     if (this.isPlaying) return;
     this.isPlaying = true;
-    this.hasPlayed = true;
     let id = this.playNext % this.audioCount;
     this.startPlayingById(id);
   }
@@ -252,7 +256,6 @@ class SegZunAudio {
   playFromStart() {
     if (this.isPlaying) return;
     this.isPlaying = true;
-    this.hasPlayed = true;
     this.startPlayingById(0);
   }
   
