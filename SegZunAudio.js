@@ -4,8 +4,8 @@ class SegZunAudio {
   Constructor
   */
   constructor(text) {
-    this.AUDIO_LIMIT = 40;
-    this.HEAD_AUDIO_LIMIT = 10;
+    this.AUDIO_LIMIT = 3;
+    this.HEAD_AUDIO_LIMIT = 2;
     this.shouldPause = false;
     this.playNext = 0;
     this.isPlaying = false;
