@@ -1,5 +1,7 @@
 # segmentalZundamon
 
+English | [日本語](./readme-ja.md)
+
 This is a TTS (Test-To-Speach) class for javascript to use Zundamon from VOICEVOX.
 
 Terms and conditions apply from VOICEVOX and zunko.jp

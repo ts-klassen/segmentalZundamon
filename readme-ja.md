@@ -1,5 +1,7 @@
 # 文節強調ずんだもん
 
+[English](./README.md) | 日本語
+
 これは、VOICEVOXのずんだもんの音声を合成するJavascriptのクラスです。
 
 VOICEVOXとzunko.jpの利用規約が適用されます。
