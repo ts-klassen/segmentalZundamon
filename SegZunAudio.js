@@ -4,12 +4,12 @@ class SegZunAudio {
   Constructor
   */
   constructor(text) {
-    this.AUDIO_LIMIT = 3;
-    this.HEAD_AUDIO_LIMIT = 2;
+    this.AUDIO_LIMIT = 6;
+    this.HEAD_AUDIO_LIMIT = 4;
     this.shouldPause = false;
+    this.canPlay = false;
     this.playNext = 0;
     this.isPlaying = false;
-    this.text = text;
     this.audios = new Array(this.AUDIO_LIMIT);
     for (let i=0;i<this.AUDIO_LIMIT;i++) {
       this.audios[i] = new Object();
@@ -26,6 +26,9 @@ class SegZunAudio {
       this.headAudios[i].status = "empty";
       this.headAudios[i].audio = null;
     }
+    
+    this.text = text + "。VOICEVOX:ずんだもん";
+    
     this.mainRequest();
   }
   
@@ -98,9 +101,6 @@ class SegZunAudio {
         for (let i=0;i<iEnd;i++) {
           SZA.genAudio(i);
         }
-        
-        SZA.playFromStart()
-        
       };
     }
     
@@ -132,6 +132,7 @@ class SegZunAudio {
         audios[address].duration = 1000*audios[address].audio.duration;
         audios[address].id = id;
         audios[address].status = "ready";
+        if (id==0) SZA.canPlay = true;
       });
       
       // When still creating, the server returns 404...
@@ -177,6 +178,11 @@ class SegZunAudio {
   
     function main(SZA, id) {
     
+      if (!SZA.canPlay) {
+        setTimeout(main, 1000, SZA, id);
+        return;
+      }
+    
       if (SZA.shouldPause) {
         SZA.shouldPause =false;
         SZA.playNext = id;
@@ -184,7 +190,7 @@ class SegZunAudio {
       }
       SZA.playNext = id+1;
       
-      let audio = Object();
+      let audio = {};
       if (id<SZA.HEAD_AUDIO_LIMIT) {
         audio = SZA.headAudios[id];
       }
@@ -225,7 +231,9 @@ class SegZunAudio {
       
     }
     
-    main(this, id%this.audioCount);
+    if (id==this.audioCount) id = 0;
+    
+    main(this, id);
     
   }
   
@@ -235,9 +243,9 @@ class SegZunAudio {
   */
   play() {
     if (this.isPlaying) return;
+    
     this.isPlaying = true;
-    let id = this.playNext % this.audioCount;
-    this.startPlayingById(id);
+    this.startPlayingById(this.playNext);
   }
   
   /*
@@ -253,7 +261,7 @@ class SegZunAudio {
   Method
     Plays audio from the begining
   */
-  playFromStart() {
+  replay() {
     if (this.isPlaying) return;
     this.isPlaying = true;
     this.startPlayingById(0);

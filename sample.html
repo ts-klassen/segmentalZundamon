@@ -1,0 +1,33 @@
+<html>
+ <head>
+  <title>segmentalZundamon</title>
+ </head>
+ <body>
+  <textarea id="text" onchange="textChanged()"></textarea>
+  <button onclick="play()">Play</button>
+  <button onclick="pause()">Pause</button>
+  <button onclick="replay()">Replay</button>
+  <script src="./SegZunAudio.js"></script>
+  <script>
+    let szAudio = new SegZunAudio("VOICEVOX:ずんだもん");
+    function textChanged() {
+      let text = document.getElementById('text').value;
+      szAudio = new SegZunAudio(text);
+    }
+    
+    function play() {
+      szAudio.play();
+    }
+    
+    function pause() {
+      szAudio.pause();
+    }
+    
+    function replay() {
+      szAudio.replay();
+    }
+    
+  </script>
+ </body>
+</html>
+
