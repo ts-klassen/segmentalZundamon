@@ -184,7 +184,6 @@ class SegZunAudio {
       }
     
       if (SZA.shouldPause) {
-        SZA.shouldPause =false;
         SZA.playNext = id;
         return;
       }
@@ -231,7 +230,11 @@ class SegZunAudio {
       
     }
     
+    
+    if (this.isPlaying) return;
     if (id==this.audioCount) id = 0;
+    this.shouldPause = false;
+    this.isPlaying = true;
     
     main(this, id);
     
@@ -242,9 +245,6 @@ class SegZunAudio {
     Starts playing the audio from playNext.
   */
   play() {
-    if (this.isPlaying) return;
-    
-    this.isPlaying = true;
     this.startPlayingById(this.playNext);
   }
   
@@ -262,8 +262,6 @@ class SegZunAudio {
     Plays audio from the begining
   */
   replay() {
-    if (this.isPlaying) return;
-    this.isPlaying = true;
     this.startPlayingById(0);
   }
   
