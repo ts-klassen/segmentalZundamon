@@ -1,12 +1,17 @@
 <html>
  <head>
   <title>segmentalZundamon</title>
+  <link rel="stylesheet" href="./sample.css"> 
  </head>
  <body>
-  <textarea id="text" onchange="textChanged()"></textarea>
-  <button onclick="play()">Play</button>
-  <button onclick="pause()">Pause</button>
-  <button onclick="replay()">Replay</button>
+  <div>
+   <h1>segmentalZundamon</h1>
+  VOICEVOX:ずんだもん
+  </div>
+  <div>
+   <textarea id="text" onchange="textChanged()"></textarea>
+   <button onclick="play()">Play</button><button onclick="pause()">Pause</button><button onclick="replay()">Replay</button>
+  </div>
   <script src="./SegZunAudio.js"></script>
   <script>
     let szAudio = new SegZunAudio("VOICEVOX:ずんだもん");
