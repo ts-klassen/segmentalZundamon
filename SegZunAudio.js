@@ -148,10 +148,10 @@ class SegZunAudio {
     }
   
     // Since you can play from the begining, 
-    // the frist 10 audios won't be deleted.
-    // For the rest of the audio, it will only use 40.
+    // the frist X audios won't be deleted.
+    // For the rest of the audio, it will only use Y.
     // This is because chromium limits the number of Audio.
-    // 40[ 10] is defined in [HEAD_]AUDIO_LIMIT.
+    // Y[ X] is defined in [HEAD_]AUDIO_LIMIT.
     if (id<this.HEAD_AUDIO_LIMIT) {
       main(
         id, 
