@@ -10,7 +10,7 @@
   </div>
   <div>
    <textarea id="text" onchange="textChanged()"></textarea>
-   <button onclick="play()">Play</button><button onclick="pause()">Pause</button><button onclick="replay()">Replay</button>
+   <button onclick="play()">Play</button><button onclick="pause()">Pause</button><button onclick="resume()">Resume</button>
   </div>
   <script src="./SegZunAudio.js"></script>
   <script>
@@ -28,8 +28,8 @@
       szAudio.pause();
     }
     
-    function replay() {
-      szAudio.replay();
+    function resume() {
+      szAudio.resume();
     }
     
   </script>

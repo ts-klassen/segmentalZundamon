@@ -244,7 +244,7 @@ class SegZunAudio {
   Method
     Starts playing the audio from playNext.
   */
-  play() {
+  resume() {
     this.startPlayingById(this.playNext);
   }
   
@@ -261,7 +261,7 @@ class SegZunAudio {
   Method
     Plays audio from the begining
   */
-  replay() {
+  play() {
     this.startPlayingById(0);
   }
   
