@@ -17,4 +17,4 @@ When using this audio, make sure to display the following string.
 If you let others use the audio, inform them about the terms and conditions.
 
 
-The license of this repository itself is under TTS QUEST DO WTF YOU WANT TO PUBLIC LICENSE. You can do anything with the source code. Just the source code.
+The license of this repository itself is under TTS QUEST PUBLIC LICENSE. You can do anything with the source code. Just the source code.
