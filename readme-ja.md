@@ -16,5 +16,5 @@ https://zunko.jp/con_ongen_kiyaku.html
 
 他の人に音声を利用させる場合は、利用規約について告知する必要があります。
 
-このリポジトリ内のソースコードは、TTS QUEST DO WTF YOU WANT TO PUBLIC LICENSEで公開します。
+このリポジトリ内のソースコードは、TTS QUEST PUBLIC LICENSEで公開します。
 リポジトリ内のソースコードに限り、何でもしやがれ。
